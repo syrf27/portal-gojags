@@ -1,0 +1,42 @@
+{
+  "categories": [
+    { "id": "eksternal", "name": "Eksternal" },
+    { "id": "internal", "name": "Internal" }
+  ],
+  "applications": [
+    {
+      "id": "gojags-classroom",
+      "name": "GOJAGS Classroom",
+      "description": "Platform pembelajaran online yang menyajikan berbagai materi pelatihan, pengetahuan, dan webinar yang dapat diakses oleh seluruh pegawai Badan Pusat Statistik dan masyarakat umum.",
+      "category": "eksternal",
+      "url": "https://gojags-classroom.bps.go.id",
+      "isFrequent": true,
+      "isFavorite": true
+    },
+    {
+      "id": "gojags-training",
+      "name": "GOJAGS Training",
+      "description": "Platform layanan teknologi informasi terintegrasi milik Pusat Pendidikan dan Pelatihan BPS yang siap membantu Anda dalam mengelola pengembangan diri",
+      "category": "eksternal",
+      "url": "https://gojags-training.bps.go.id"
+    },
+    {
+      "id": "gojags-prime",
+      "name": "GOJAGS Prime",
+      "description": "Dashboard eksekutif manajemen talenta dengan visualisasi data strategis.",
+      "category": "eksternal",
+      "url": "https://gojags-prime.bps.go.id",
+      "isFavorite": true,
+      "isPublished": false
+    },
+    {
+      "id": "gojags-office",
+      "name": "GOJAGS Office",
+      "description": "Sistem Back office Pusdiklat BPS.",
+      "category": "internal",
+      "url": "https://gojags-office.etc-nso.id",
+      "isFrequent": true,
+      "isFavorite": true
+    }
+  ]
+}

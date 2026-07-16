@@ -1,0 +1,93 @@
+---
+const { searchQuery = '' } = Astro.props;
+const stats = [
+  { label: 'Aplikasi Internal', value: '35+' },
+  { label: 'Kategori Layanan', value: '12' },
+  { label: 'Pengguna Aktif', value: '1.2k' },
+];
+---
+
+<section
+  class="relative border-b overflow-hidden"
+  style="background-color: var(--color-surface-secondary); border-color: var(--color-border);"
+>
+  <!-- Decorative Enterprise Pattern -->
+  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <!-- Elegant dotted pattern -->
+    <div class="absolute inset-0" style="background-image: radial-gradient(var(--color-border) 1px, transparent 1px); background-size: 24px 24px; opacity: 0.5;"></div>
+    <!-- Fade masks -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--color-surface-secondary)] to-[var(--color-surface-secondary)] opacity-70"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-surface-secondary)] via-transparent to-[var(--color-surface-secondary)] opacity-50"></div>
+    
+    <!-- Concentric tech circles -->
+    <div class="absolute -top-32 -right-32 w-[30rem] h-[30rem] rounded-full border border-[var(--color-accent)] opacity-20"></div>
+    <div class="absolute -top-16 -right-16 w-[30rem] h-[30rem] rounded-full border border-[var(--color-accent)] opacity-10"></div>
+    <div class="absolute top-0 right-0 w-[30rem] h-[30rem] rounded-full border border-[var(--color-accent)] opacity-[0.03]"></div>
+    
+    <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full border border-[var(--color-accent)] opacity-10"></div>
+    <div class="absolute -bottom-12 -left-12 w-80 h-80 rounded-full border border-[var(--color-accent)] opacity-5"></div>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-12 sm:pb-24 relative z-10">
+    <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+      
+      <!-- Main Headline (Pushed down slightly to replace the badge's space) -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 mt-2 text-balance leading-tight" style="color: var(--color-text-primary);">
+        Selamat datang di <br class="hidden sm:block" />
+        Portal Aplikasi <span style="color: var(--color-accent);">GOJAGS</span>
+      </h1>
+
+      <p class="text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed" style="color: var(--color-text-secondary);">
+        Platform untuk mengakses seluruh aplikasi dan layanan GOJAGS milik Pusdiklat BPS secara cepat, aman, dan efisien.
+      </p>
+
+      <!-- Clean Search Bar -->
+      <div class="relative w-full max-w-2xl mx-auto mb-10">
+        <div class="relative flex items-center bg-[var(--color-surface)] rounded-lg shadow-sm border focus-within:ring-2 focus-within:ring-[var(--color-accent)] focus-within:border-[var(--color-accent)] transition-all duration-200" style="border-color: var(--color-border);">
+          <div class="pl-4 pr-2 text-[var(--color-text-secondary)]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input
+            id="hero-search"
+            type="search"
+            placeholder="Cari aplikasi atau layanan..."
+            value={searchQuery}
+            class="w-full h-14 bg-transparent text-base border-none outline-none focus:ring-0 px-2"
+            style="color: var(--color-text-primary);"
+            aria-label="Cari aplikasi"
+            autocomplete="off"
+          />
+          <div class="pr-2">
+            <button class="px-4 py-2 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-all duration-300 ease-out hover:shadow-md">
+              Cari
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Stats Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 w-full max-w-3xl border-t pt-8" style="border-color: var(--color-border-light);">
+        {stats.map((stat) => (
+          <div class="text-center flex flex-col items-center p-6 rounded-2xl transition-colors duration-500 ease-out hover:bg-[var(--color-surface)] group">
+            <div class="text-3xl font-semibold mb-1" style="color: var(--color-text-primary);">
+              {stat.value}
+            </div>
+            <div class="text-sm font-medium" style="color: var(--color-text-secondary);">
+              {stat.label}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity z-20">
+    <div class="w-5 h-8 border-2 border-[var(--color-accent)] rounded-full p-1 flex justify-center">
+      <div class="w-1 h-2 bg-[var(--color-accent)] rounded-full animate-bounce mt-0.5"></div>
+    </div>
+  </div>
+</section>

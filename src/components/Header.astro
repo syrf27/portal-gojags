@@ -1,0 +1,26 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header
+  id="header"
+  class="sticky top-0 z-50"
+  style="background: var(--color-header); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border);"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <a href="/" class="flex items-center gap-3 no-underline" aria-label="Portal GOJAGS">
+        <img src="/gojags-logo.png" alt="GoJAGS" width="32" height="32" class="rounded" />
+        <div class="flex flex-col">
+          <span class="text-[11px] font-bold leading-none tracking-widest uppercase text-[var(--color-text-secondary)]">Portal</span>
+          <span class="text-lg font-bold leading-none tracking-tight" style="color: var(--color-text-primary); margin-top: 2px;">GOJAGS</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:inline text-xs px-1.5 py-0.5 rounded font-mono" style="background: var(--color-surface-tertiary); color: var(--color-text-tertiary);">v1.0.0</span>
+        <ThemeToggle size="sm" />
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f9fafb;
+  --color-surface-tertiary: #f3f4f6;
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  --color-accent: #d97706; /* Elegant yellow-orange */
+  --color-accent-hover: #b45309;
+  --color-accent-light: #fef3c7;
+  --color-card: #ffffff;
+  --color-card-hover: #f9fafb;
+  --color-header: rgba(255, 255, 255, 0.8);
+  --color-hero: #ffffff;
+  --color-footer: #f9fafb;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  
+  --animate-slide-arrow: slide-arrow 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  @keyframes slide-arrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  --color-surface: #0f172a;
+  --color-surface-secondary: #1e293b;
+  --color-surface-tertiary: #334155;
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  --color-accent: #f59e0b; /* Bright amber for dark mode */
+  --color-accent-hover: #fbbf24;
+  --color-accent-light: #78350f;
+  --color-card: #1e293b;
+  --color-card-hover: #334155;
+  --color-header: rgba(15, 23, 42, 0.8);
+  --color-hero: #1e293b;
+  --color-footer: #1e293b;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+* {
+  border-color: var(--color-border);
+  transition: border-color 0.2s ease;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}

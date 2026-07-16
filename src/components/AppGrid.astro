@@ -1,0 +1,26 @@
+---
+import type { Application } from '../types';
+import AppCard from './AppCard.astro';
+export interface Props {
+  applications: Application[];
+  title: string;
+  id?: string;
+}
+
+const { applications, title, id } = Astro.props;
+---
+
+<section id={id} class="mb-10">
+  <h2 class="text-lg font-semibold mb-4" style="color: var(--color-text-primary);">{title}</h2>
+  {applications.length > 0 ? (
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      {applications.map((app) => (
+        <AppCard app={app} />
+      ))}
+    </div>
+  ) : (
+    <div class="text-center py-12">
+      <p class="text-sm" style="color: var(--color-text-tertiary);">No applications found.</p>
+    </div>
+  )}
+</section>
