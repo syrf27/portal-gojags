@@ -1,12 +1,3 @@
----
-const { searchQuery = '' } = Astro.props;
-const stats = [
-  { label: 'Aplikasi Internal', value: '35+' },
-  { label: 'Kategori Layanan', value: '12' },
-  { label: 'Pengguna Aktif', value: '1.2k' },
-];
----
-
 <section
   class="relative border-b overflow-hidden"
   style="background-color: var(--color-surface-secondary); border-color: var(--color-border);"
@@ -28,14 +19,54 @@ const stats = [
     <div class="absolute -bottom-12 -left-12 w-80 h-80 rounded-full border border-[var(--color-accent)] opacity-5"></div>
   </div>
 
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-20 sm:pt-12 sm:pb-24 relative z-10">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-8 sm:pt-12 sm:pb-12 relative z-10">
     <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
       
       <!-- Main Headline (Pushed down slightly to replace the badge's space) -->
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 mt-2 text-balance leading-tight" style="color: var(--color-text-primary);">
-        Selamat datang di <br class="hidden sm:block" />
-        Portal Aplikasi <span style="color: var(--color-accent);">GOJAGS</span>
+        <style>
+          @keyframes draw-circle {
+            from { stroke-dashoffset: 620; }
+            to   { stroke-dashoffset: 0; }
+          }
+          .hand-circle {
+            stroke-dasharray: 620;
+            stroke-dashoffset: 620;
+            animation: draw-circle 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+          }
+        </style>
+        <span style="margin-right: 0.4em;">Selamat</span><span style="margin-right: 0.4em;">datang</span><span style="margin-right: 0.4em;">di</span><br class="hidden sm:block" />
+        <span class="relative inline-block" style="padding: 0 0.15em; margin-right: 0.4em;">
+          <span class="relative" style="z-index: 1;">Portal</span>
+          <svg
+            class="absolute pointer-events-none"
+            style="top: -18%; left: -10%; width: 120%; height: 136%; overflow: visible;"
+            viewBox="0 0 200 66"
+            fill="none"
+            stroke="var(--color-accent)"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <!-- Natural hand-drawn ellipse: starts top-right, sweeps around, ends overlapping slightly past start -->
+            <path
+              class="hand-circle"
+              vector-effect="non-scaling-stroke"
+              d="
+                M 172 14
+                C 158 4,  120 1,  80 3
+                C 40  5,  6  14,  4 33
+                C 2  52,  38 63,  82 64
+                C 126 65, 170 57, 188 42
+                C 198 32, 194 18, 178 10
+                C 170  6, 160  5, 152  8
+              "
+            />
+          </svg>
+        </span>
+        <span style="margin-right: 0.4em;">Aplikasi</span><span style="color: var(--color-accent);">GOJAGS</span>
       </h1>
+
 
       <p class="text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed" style="color: var(--color-text-secondary);">
         Platform untuk mengakses seluruh aplikasi dan layanan GOJAGS milik Pusdiklat BPS secara cepat, aman, dan efisien.
@@ -43,7 +74,7 @@ const stats = [
 
       <!-- Clean Search Bar -->
       <div class="relative w-full max-w-2xl mx-auto mb-10">
-        <div class="relative flex items-center bg-[var(--color-surface)] rounded-lg shadow-sm border focus-within:ring-2 focus-within:ring-[var(--color-accent)] focus-within:border-[var(--color-accent)] transition-all duration-200" style="border-color: var(--color-border);">
+        <form id="search-form" class="relative flex items-center bg-[var(--color-surface)] rounded-lg shadow-sm border focus-within:ring-2 focus-within:ring-[var(--color-accent)] focus-within:border-[var(--color-accent)] transition-all duration-200" style="border-color: var(--color-border);" onsubmit="event.preventDefault();">
           <div class="pl-4 pr-2 text-[var(--color-text-secondary)]">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -53,41 +84,225 @@ const stats = [
             id="hero-search"
             type="search"
             placeholder="Cari aplikasi atau layanan..."
-            value={searchQuery}
             class="w-full h-14 bg-transparent text-base border-none outline-none focus:ring-0 px-2"
             style="color: var(--color-text-primary);"
             aria-label="Cari aplikasi"
             autocomplete="off"
           />
           <div class="pr-2">
-            <button class="px-4 py-2 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-all duration-300 ease-out hover:shadow-md">
+            <button type="submit" class="px-4 py-2 rounded-md bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-sm font-medium transition-all duration-300 ease-out hover:shadow-md">
               Cari
             </button>
           </div>
+        </form>
+      </div>
+
+      <!-- macOS Window Carousel -->
+      <div class="w-full max-w-5xl mx-auto mt-2 relative" style="padding-bottom: 3rem;">
+
+        <style>
+          .carousel-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            height: 360px;
+          }
+          .carousel-card {
+            position: absolute;
+            width: 68%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            transition: transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s cubic-bezier(0.4,0,0.2,1), z-index 0s;
+            cursor: pointer;
+            user-select: none;
+          }
+          .carousel-card.active {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+            z-index: 3;
+          }
+          .carousel-card.prev {
+            transform: translateX(-58%) scale(0.82);
+            opacity: 0.55;
+            z-index: 2;
+          }
+          .carousel-card.next {
+            transform: translateX(58%) scale(0.82);
+            opacity: 0.55;
+            z-index: 2;
+          }
+          .carousel-card.hidden-left {
+            transform: translateX(-90%) scale(0.7);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+          }
+          .carousel-card.hidden-right {
+            transform: translateX(90%) scale(0.7);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+          }
+          /* macOS window chrome */
+          .win-chrome {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-surface-secondary);
+          }
+          .win-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+          }
+          .win-dot-red    { background: #ff5f57; }
+          .win-dot-yellow { background: #ffbd2e; }
+          .win-dot-green  { background: #28c840; }
+          .win-urlbar {
+            flex: 1;
+            margin: 0 12px;
+            background: var(--color-border);
+            border-radius: 6px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            opacity: 0.7;
+          }
+          .win-urlbar span {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+          .win-content img {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+            display: block;
+          }
+          /* Dot indicators */
+          .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.5rem;
+          }
+          .carousel-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            padding: 0;
+          }
+          .carousel-dot.active {
+            background: var(--color-accent);
+            transform: scale(1.3);
+          }
+        </style>
+
+        <!-- Cards -->
+        <div class="carousel-track" id="carousel-track">
+          <div class="carousel-card active" data-index="0" id="card-0">
+            <div class="win-chrome">
+              <span class="win-dot win-dot-red"></span>
+              <span class="win-dot win-dot-yellow"></span>
+              <span class="win-dot win-dot-green"></span>
+              <div class="win-urlbar"><span>portal.gojags.pusdiklat.bps.go.id — Ruang Kelas</span></div>
+            </div>
+            <div class="win-content">
+              <img src="/classroom.png" alt="Ruang Kelas GOJAGS" draggable="false" />
+            </div>
+          </div>
+
+          <div class="carousel-card next" data-index="1" id="card-1">
+            <div class="win-chrome">
+              <span class="win-dot win-dot-red"></span>
+              <span class="win-dot win-dot-yellow"></span>
+              <span class="win-dot win-dot-green"></span>
+              <div class="win-urlbar"><span>portal.gojags.pusdiklat.bps.go.id — Pelatihan</span></div>
+            </div>
+            <div class="win-content">
+              <img src="/training.png" alt="Pelatihan GOJAGS" draggable="false" />
+            </div>
+          </div>
+
+          <div class="carousel-card prev" data-index="2" id="card-2">
+            <div class="win-chrome">
+              <span class="win-dot win-dot-red"></span>
+              <span class="win-dot win-dot-yellow"></span>
+              <span class="win-dot win-dot-green"></span>
+              <div class="win-urlbar"><span>portal.gojags.pusdiklat.bps.go.id — Kantor</span></div>
+            </div>
+            <div class="win-content">
+              <img src="/office.png" alt="Kantor GOJAGS" draggable="false" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="carousel-dots" id="carousel-dots">
+          <button class="carousel-dot active" aria-label="Slide 1"></button>
+          <button class="carousel-dot" aria-label="Slide 2"></button>
+          <button class="carousel-dot" aria-label="Slide 3"></button>
         </div>
       </div>
 
-      <!-- Professional Stats Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 w-full max-w-3xl border-t pt-8" style="border-color: var(--color-border-light);">
-        {stats.map((stat) => (
-          <div class="text-center flex flex-col items-center p-6 rounded-2xl transition-colors duration-500 ease-out hover:bg-[var(--color-surface)] group">
-            <div class="text-3xl font-semibold mb-1" style="color: var(--color-text-primary);">
-              {stat.value}
-            </div>
-            <div class="text-sm font-medium" style="color: var(--color-text-secondary);">
-              {stat.label}
-            </div>
-          </div>
-        ))}
-      </div>
+      <script>
+        (function() {
+          const total = 3;
+          let current = 0;
+          const cards = Array.from(document.querySelectorAll('.carousel-card'));
+          const dots  = Array.from(document.querySelectorAll('.carousel-dot'));
 
-    </div>
-  </div>
+          function getClass(i) {
+            const diff = ((i - current) % total + total) % total;
+            if (diff === 0) return 'active';
+            if (diff === 1) return 'next';
+            if (diff === total - 1) return 'prev';
+            if (diff === 2) return 'hidden-right';
+            return 'hidden-left';
+          }
 
-  <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity z-20">
-    <div class="w-5 h-8 border-2 border-[var(--color-accent)] rounded-full p-1 flex justify-center">
-      <div class="w-1 h-2 bg-[var(--color-accent)] rounded-full animate-bounce mt-0.5"></div>
-    </div>
-  </div>
+          function update() {
+            cards.forEach((card, i) => {
+              card.className = 'carousel-card ' + getClass(i);
+            });
+            dots.forEach((dot, i) => {
+              dot.classList.toggle('active', i === current);
+            });
+          }
+
+          // Click side cards to navigate
+          cards.forEach((card, i) => {
+            card.addEventListener('click', () => {
+              const cls = getClass(i);
+              if (cls === 'next') { current = (current + 1) % total; update(); }
+              if (cls === 'prev') { current = (current - 1 + total) % total; update(); }
+            });
+          });
+
+          // Dot clicks
+          dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => { current = i; update(); });
+          });
+
+          // Auto-advance every 4 seconds
+          setInterval(() => { current = (current + 1) % total; update(); }, 4000);
+        })();
+      </script>
+
+    </div>   <!-- /.max-w-4xl -->
+  </div>     <!-- /.max-w-7xl -->
+
 </section>

@@ -1,0 +1,149 @@
+---
+import { applications, categories } from '../data/applications';
+
+function fmt(n: number): string {
+  if (n >= 1000) {
+    const k = (n / 1000).toFixed(1);
+    return k.endsWith('.0') ? `${parseInt(k)}k+` : `${k}k+`;
+  }
+  return String(n);
+}
+
+const stats = [
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+    value: fmt(applications.length),
+    label: 'Total Aplikasi',
+  },
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 10h16M4 14h10"/></svg>`,
+    value: fmt(categories.length),
+    label: 'Kategori Layanan',
+  },
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    value: '0',
+    label: 'Total Pengunjung',
+    id: 'visitor-count',
+  },
+];
+---
+
+<section class="stats-bar-section">
+  <div class="stats-bar-inner">
+    {stats.map((stat, i) => (
+      <div class="stats-bar-item">
+        <div class="stats-bar-icon" set:html={stat.icon} />
+        <div class="stats-bar-text">
+          <span class="stats-bar-value" id={stat.id}>{stat.value}</span>
+          <span class="stats-bar-label">{stat.label}</span>
+        </div>
+        {i < stats.length - 1 && <div class="stats-bar-divider" />}
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  (function () {
+    function fmt(n) {
+      return n >= 1000 ? (n / 1000).toFixed(1) + 'k+' : String(n);
+    }
+    function update(el, n) {
+      el.textContent = fmt(n);
+    }
+
+    fetch('https://api.countapi.xyz/hit/gojags-portal/visitors')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var el = document.getElementById('visitor-count');
+        if (el) update(el, data.value);
+      })
+      .catch(function () {
+        var el = document.getElementById('visitor-count');
+        if (!el) return;
+        var n = parseInt(localStorage.getItem('vc') || '0', 10) + 1;
+        localStorage.setItem('vc', String(n));
+        update(el, n);
+      });
+  })();
+</script>
+
+<style>
+  .stats-bar-section {
+    width: 100%;
+    padding: 0 1.5rem;
+    margin: 3rem 0 0;
+  }
+
+  .stats-bar-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--color-accent);
+    border-radius: 16px;
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .stats-bar-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.6rem 2rem;
+    position: relative;
+  }
+
+  .stats-bar-icon {
+    color: rgba(255,255,255,0.85);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .stats-bar-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stats-bar-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .stats-bar-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .stats-bar-divider {
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  @media (max-width: 600px) {
+    .stats-bar-inner {
+      flex-direction: column;
+    }
+    .stats-bar-divider {
+      top: auto;
+      bottom: 0;
+      right: 10%;
+      height: 1px;
+      width: 80%;
+    }
+  }
+</style>

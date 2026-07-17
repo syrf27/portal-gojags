@@ -18,7 +18,8 @@
       "name": "GOJAGS Training",
       "description": "Platform layanan teknologi informasi terintegrasi milik Pusat Pendidikan dan Pelatihan BPS yang siap membantu Anda dalam mengelola pengembangan diri",
       "category": "eksternal",
-      "url": "https://gojags-training.bps.go.id"
+      "url": "https://gojags-training.bps.go.id",
+      "isFavorite": true
     },
     {
       "id": "gojags-prime",
@@ -26,7 +27,6 @@
       "description": "Dashboard eksekutif manajemen talenta dengan visualisasi data strategis.",
       "category": "eksternal",
       "url": "https://gojags-prime.bps.go.id",
-      "isFavorite": true,
       "isPublished": false
     },
     {

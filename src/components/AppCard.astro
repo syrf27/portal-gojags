@@ -45,7 +45,7 @@ const isPublished = app.isPublished !== false;
   <div class="mt-auto flex items-center justify-between px-5 py-4 border-t" style="border-color: var(--color-border-light);">
     <span
       class="text-xs px-2 py-0.5 rounded-full font-medium"
-      style="background: color-mix(in srgb, {color} 12%, transparent); color: {color};"
+      style={`background: color-mix(in srgb, ${color} 12%, transparent); color: ${color};`}
     >
       {app.category === 'eksternal' ? 'Eksternal' : 'Internal'}
     </span>

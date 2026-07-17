@@ -1,0 +1,282 @@
+---
+---
+
+<section class="mobile-section">
+  <div class="mobile-inner">
+    <!-- Phone mockup side -->
+    <div class="mobile-phone-wrap">
+      <div class="mobile-phone">
+        <!-- Phone notch / dynamic island -->
+        <div class="phone-notch"></div>
+        <!-- Screen -->
+        <div class="phone-screen">
+          <img
+            src="/gojags-mobile.png"
+            alt="GOJAGS Mobile App"
+            class="phone-screen-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <!-- Fallback if image missing -->
+          <div class="phone-screen-fallback" style="display:none;">
+            <div class="fallback-logo">G</div>
+            <p class="fallback-text">GOJAGS Mobile</p>
+          </div>
+        </div>
+        <!-- Home bar -->
+        <div class="phone-home-bar"></div>
+      </div>
+    </div>
+
+    <!-- Text side -->
+    <div class="mobile-content">
+      <h2 class="mobile-title">
+        Tetap Terhubung,<br />
+        <span style="color: var(--color-accent);">Kapan Saja &amp; Di Mana Saja.</span>
+      </h2>
+      <p class="mobile-desc">
+        Gojags Mobile adalah aplikasi yang membantu pegawai tetap terhubung dan mendapatkan informasi penting secara <strong>real-time</strong> melalui notifikasi langsung di perangkat mobile.
+      </p>
+
+      <!-- Google Play badge -->
+      <a
+        href="https://play.google.com/store"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="play-store-btn"
+        aria-label="Unduh di Google Play"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3.18 23.76c.31.17.67.19 1.01.07l12.04-7.05-2.68-2.68-10.37 9.66zm-1.13-19.5A1.5 1.5 0 0 0 2 5.25v13.5c0 .52.28.97.7 1.22l.08.05 7.57-7.57v-.18L2.05 4.26zm17.22 8.1-2.56-1.5-2.96 2.96 2.96 2.96 2.57-1.5a1.5 1.5 0 0 0 0-2.62zM4.19.17a1.05 1.05 0 0 0-1.01.08l10.38 9.67 2.68-2.68L4.19.17z"/>
+        </svg>
+        <div class="play-store-text">
+          <span class="play-store-get">GET IT ON</span>
+          <span class="play-store-name">Google Play</span>
+        </div>
+      </a>
+
+      <!-- Feature pills -->
+      <div class="mobile-features">
+        <span class="feature-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Notifikasi Real-time
+        </span>
+        <span class="feature-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          SSO Login
+        </span>
+        <span class="feature-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Akses Cepat
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mobile-section {
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 1.5rem 5rem;
+    margin-top: 4rem;
+    background: var(--color-surface-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+
+  .mobile-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    text-align: left;
+  }
+
+  /* ── Phone mockup ── */
+  .mobile-phone-wrap {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    filter: drop-shadow(0 32px 48px rgba(0,0,0,0.22));
+  }
+
+  .mobile-phone {
+    width: 200px;
+    background: #0f1117;
+    border-radius: 36px;
+    border: 2px solid rgba(255,255,255,0.12);
+    padding: 14px 8px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.06),
+      0 0 0 6px rgba(255,255,255,0.04);
+  }
+
+  .phone-notch {
+    width: 72px; height: 22px;
+    background: #0f1117;
+    border-radius: 0 0 14px 14px;
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    z-index: 2;
+    border: 2px solid rgba(255,255,255,0.08);
+    border-top: none;
+  }
+
+  .phone-screen {
+    width: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #111827;
+    aspect-ratio: 9/19.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-screen-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .phone-screen-fallback {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 1rem;
+  }
+  .fallback-logo {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--color-accent);
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fallback-text {
+    color: white; font-size: 0.75rem; font-weight: 500; text-align: center;
+  }
+
+  .phone-home-bar {
+    width: 48px; height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+    margin-top: 2px;
+  }
+
+  /* ── Text content ── */
+  .mobile-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+
+  .mobile-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .mobile-desc {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+    max-width: 480px;
+    margin: 0;
+  }
+
+  /* Google Play button */
+  .play-store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #1a1a2e;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    width: fit-content;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .play-store-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .play-store-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .play-store-get {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    opacity: 0.8;
+    font-weight: 500;
+  }
+  .play-store-name {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* Feature pills */
+  .mobile-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 5px 14px;
+  }
+  .feature-pill svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .mobile-inner {
+      flex-direction: column;
+      text-align: center;
+      gap: 2.5rem;
+    }
+    .play-store-btn {
+      margin: 0 auto;
+    }
+    .mobile-features {
+      justify-content: center;
+    }
+    .mobile-desc {
+      max-width: 100%;
+    }
+  }
+</style>

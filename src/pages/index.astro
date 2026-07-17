@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import CategoryFilter from '../components/CategoryFilter.astro';
 import AppGrid from '../components/AppGrid.astro';
+import StatsBar from '../components/StatsBar.astro';
+import MobileAppSection from '../components/MobileAppSection.astro';
 import { applications, categories } from '../data/applications';
 
 const allCategories = [{ id: 'favorites', name: 'Favorit' }, ...categories];
@@ -10,7 +12,7 @@ const allCategories = [{ id: 'favorites', name: 'Favorit' }, ...categories];
 
 <Layout>
   <Hero />
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+  <div id="apps-section" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-6 overflow-x-auto pb-2">
       <CategoryFilter categories={allCategories} active="all" />
     </div>
@@ -19,6 +21,9 @@ const allCategories = [{ id: 'favorites', name: 'Favorit' }, ...categories];
       <AppGrid title="Semua Aplikasi" applications={applications} id="all-apps-section" />
     </div>
   </div>
+
+  <StatsBar />
+  <MobileAppSection />
 </Layout>
 
 <script is:inline define:vars={{ applicationsData: applications }}>
@@ -26,7 +31,17 @@ var currentCategory = 'all';
 var currentQuery = '';
 
 function renderApps(apps) {
-  var title = currentCategory === 'favorites' ? 'Aplikasi Favorit' : (currentCategory === 'all' ? 'Semua Aplikasi' : 'Aplikasi');
+  var title;
+  if (currentQuery) {
+    title = 'Aplikasi "' + currentQuery + '"';
+  } else if (currentCategory === 'favorites') {
+    title = 'Aplikasi Favorit';
+  } else if (currentCategory === 'all') {
+    title = 'Semua Aplikasi';
+  } else {
+    var catName = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
+    title = 'Aplikasi ' + catName;
+  }
   
   var html = '<section class="mb-12"><h2 class="text-lg font-semibold mb-5" style="color:var(--color-text-primary)">' + title + '</h2><div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">' +
     apps.map(function(a) { return renderCard(a); }).join('') +
@@ -107,6 +122,14 @@ if (heroSearch) {
   heroSearch.addEventListener('input', function() {
     currentQuery = heroSearch.value || '';
     filterApps();
+  });
+}
+
+var searchForm = document.getElementById('search-form');
+if (searchForm) {
+  searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('apps-section').scrollIntoView({ behavior: 'smooth' });
   });
 }
 
