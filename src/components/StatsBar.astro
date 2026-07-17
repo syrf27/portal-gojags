@@ -47,23 +47,30 @@ const stats = [
 <script>
   (function () {
     function fmt(n) {
-      return n >= 1000 ? (n / 1000).toFixed(1) + 'k+' : String(n);
+      return n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k+' : String(n);
     }
     function update(el, n) {
       el.textContent = fmt(n);
     }
 
-    fetch('https://api.countapi.xyz/hit/gojags-portal/visitors')
+    var baseCount = 1200;
+
+    fetch('https://api.counterapi.dev/v1/gojags-portal/visitors/up')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var el = document.getElementById('visitor-count');
-        if (el) update(el, data.value);
+        if (el && data.count) {
+          var total = baseCount + data.count;
+          update(el, total);
+          localStorage.setItem('gojags_vc', String(total));
+        }
       })
       .catch(function () {
         var el = document.getElementById('visitor-count');
         if (!el) return;
-        var n = parseInt(localStorage.getItem('vc') || '0', 10) + 1;
-        localStorage.setItem('vc', String(n));
+        var saved = parseInt(localStorage.getItem('gojags_vc') || String(baseCount), 10);
+        var n = saved + 1;
+        localStorage.setItem('gojags_vc', String(n));
         update(el, n);
       });
   })();
