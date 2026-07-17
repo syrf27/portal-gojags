@@ -12,17 +12,20 @@ function fmt(n: number): string {
 const stats = [
   {
     icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
-    value: fmt(applications.length),
+    value: '0',
+    rawValue: applications.length,
     label: 'Total Aplikasi',
   },
   {
     icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 10h16M4 14h10"/></svg>`,
-    value: fmt(categories.length),
+    value: '0',
+    rawValue: categories.length,
     label: 'Kategori Layanan',
   },
   {
     icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
     value: '0',
+    rawValue: null,
     label: 'Total Pengunjung',
     id: 'visitor-count',
   },
@@ -35,7 +38,11 @@ const stats = [
       <div class="stats-bar-item">
         <div class="stats-bar-icon" set:html={stat.icon} />
         <div class="stats-bar-text">
-          <span class="stats-bar-value" id={stat.id}>{stat.value}</span>
+          <span
+            class="stats-bar-value"
+            id={stat.id}
+            data-count-target={stat.rawValue !== null && stat.rawValue !== undefined ? String(stat.rawValue) : undefined}
+          >{stat.value}</span>
           <span class="stats-bar-label">{stat.label}</span>
         </div>
         {i < stats.length - 1 && <div class="stats-bar-divider" />}
@@ -46,28 +53,68 @@ const stats = [
 
 <script>
   (function () {
-    function update(el, n) {
-      el.textContent = n.toLocaleString('id-ID');
+    // Animated count-up
+    function animateCount(el, target, duration) {
+      var start = 0;
+      var startTime = null;
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        // ease-out cubic
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(eased * target);
+        el.textContent = current.toLocaleString('id-ID');
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target.toLocaleString('id-ID');
+          el.classList.add('count-updated');
+          setTimeout(function () { el.classList.remove('count-updated'); }, 500);
+        }
+      }
+      requestAnimationFrame(step);
     }
 
-    // Using a community-maintained CountAPI clone that doesn't trigger adblockers
-    fetch('https://countapi.mileshilliard.com/api/v1/hit/gojags-portal-visitors')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        var el = document.getElementById('visitor-count');
-        if (el && data.value) {
-          update(el, data.value);
-          localStorage.setItem('gojags_vc', String(data.value));
-        }
-      })
-      .catch(function () {
-        var el = document.getElementById('visitor-count');
-        if (!el) return;
-        var saved = parseInt(localStorage.getItem('gojags_vc') || '0', 10);
-        var n = saved + 1;
-        localStorage.setItem('gojags_vc', String(n));
-        update(el, n);
+    // Trigger counts when stats bar is visible
+    var section = document.querySelector('.stats-bar-section');
+    var triggered = false;
+
+    function runCounts(visitorTotal) {
+      // Animate static stats from data attributes
+      document.querySelectorAll('[data-count-target]').forEach(function (el) {
+        var target = parseInt(el.getAttribute('data-count-target'), 10);
+        animateCount(el, target, 1400);
       });
+      // Animate visitor count
+      var vcEl = document.getElementById('visitor-count');
+      if (vcEl && visitorTotal) {
+        animateCount(vcEl, visitorTotal, 1800);
+      }
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && !triggered) {
+        triggered = true;
+        io.disconnect();
+
+        // Fetch visitor count, then animate everything
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/gojags-portal-visitors')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var val = data.value || 0;
+            localStorage.setItem('gojags_vc', String(val));
+            runCounts(val);
+          })
+          .catch(function () {
+            var saved = parseInt(localStorage.getItem('gojags_vc') || '0', 10);
+            var n = saved + 1;
+            localStorage.setItem('gojags_vc', String(n));
+            runCounts(n);
+          });
+      }
+    }, { threshold: 0.3 });
+
+    if (section) io.observe(section);
   })();
 </script>
 

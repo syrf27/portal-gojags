@@ -12,13 +12,24 @@ const allCategories = [{ id: 'favorites', name: 'Favorit' }, ...categories];
 
 <Layout>
   <Hero />
-  <div id="apps-section" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+  <div id="apps-section" class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Subtle dot-grid decoration -->
+    <div class="deco-dots absolute inset-0 opacity-40 pointer-events-none" aria-hidden="true"></div>
+    <!-- Geometric corner accent -->
+    <svg class="absolute top-6 right-4 opacity-20 pointer-events-none" width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+      <rect x="0" y="0" width="12" height="12" rx="2" fill="var(--color-accent)"/>
+      <rect x="16" y="0" width="6" height="6" rx="1" fill="var(--color-accent)" opacity="0.5"/>
+      <rect x="0" y="16" width="6" height="6" rx="1" fill="var(--color-accent)" opacity="0.5"/>
+      <rect x="25" y="25" width="3" height="3" rx="0.5" fill="var(--color-accent)" opacity="0.3"/>
+    </svg>
+    <div class="relative">
     <div class="mb-6 overflow-x-auto pb-2">
       <CategoryFilter categories={allCategories} active="all" />
     </div>
 
     <div id="portal-content">
       <AppGrid title="Semua Aplikasi" applications={applications} id="all-apps-section" />
+    </div>
     </div>
   </div>
 
@@ -43,7 +54,7 @@ function renderApps(apps) {
     title = 'Aplikasi ' + catName;
   }
   
-  var html = '<section class="mb-12"><h2 class="text-lg font-semibold mb-5" style="color:var(--color-text-primary)">' + title + '</h2><div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">' +
+  var html = '<section class="mb-12"><h2 class="section-heading text-lg font-semibold mb-5" style="color:var(--color-text-primary)">' + title + '</h2><div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">' +
     apps.map(function(a) { return renderCard(a); }).join('') +
     '</div></section>';
 
@@ -75,15 +86,30 @@ function filterApps() {
   }
   
   renderApps(filtered);
+
+  // Re-run IntersectionObserver on newly injected cards
+  requestAnimationFrame(function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.card-enter:not(.is-visible)').forEach(function (el) {
+      io.observe(el);
+    });
+  });
 }
 
-var categoryColors = { eksternal: '#3b82f6', internal: '#8b5cf6' };
+var categoryColors = { eksternal: '#0e7490', internal: '#7c3aed' };
 
 function renderCard(a) {
   var color = categoryColors[a.category] || '#6b7280';
   var catName = a.category === 'eksternal' ? 'Eksternal' : 'Internal';
   var published = a.isPublished !== false;
-  var html = '<article class="group relative rounded-xl border flex flex-col transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:border-[var(--color-accent)]" style="background:var(--color-card);border-color:var(--color-border-light)" tabindex="0" role="article" aria-label="' + a.name + ' - ' + a.description + '">' +
+  var html = '<article class="card-enter is-visible group relative rounded-xl border flex flex-col transition-all duration-300 ease-out shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-[var(--color-accent)]" style="background:var(--color-card);border-color:var(--color-border-light)" tabindex="0" role="article" aria-label="' + a.name + ' - ' + a.description + '">' +
     '<div class="flex items-start gap-3 px-5 pt-5 pb-3">' +
       '<img src="/gojags-logo.png" alt="" width="36" height="36" class="rounded-lg shrink-0" aria-hidden="true" loading="lazy">' +
       '<div class="min-w-0 flex-1">' +
