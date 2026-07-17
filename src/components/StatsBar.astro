@@ -46,29 +46,24 @@ const stats = [
 
 <script>
   (function () {
-    function fmt(n) {
-      return n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k+' : String(n);
-    }
     function update(el, n) {
-      el.textContent = fmt(n);
+      el.textContent = n.toLocaleString('id-ID');
     }
 
-    var baseCount = 1200;
-
-    fetch('https://api.counterapi.dev/v1/gojags-portal/visitors/up')
+    // Using a community-maintained CountAPI clone that doesn't trigger adblockers
+    fetch('https://countapi.mileshilliard.com/api/v1/hit/gojags-portal-visitors')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var el = document.getElementById('visitor-count');
-        if (el && data.count) {
-          var total = baseCount + data.count;
-          update(el, total);
-          localStorage.setItem('gojags_vc', String(total));
+        if (el && data.value) {
+          update(el, data.value);
+          localStorage.setItem('gojags_vc', String(data.value));
         }
       })
       .catch(function () {
         var el = document.getElementById('visitor-count');
         if (!el) return;
-        var saved = parseInt(localStorage.getItem('gojags_vc') || String(baseCount), 10);
+        var saved = parseInt(localStorage.getItem('gojags_vc') || '0', 10);
         var n = saved + 1;
         localStorage.setItem('gojags_vc', String(n));
         update(el, n);
