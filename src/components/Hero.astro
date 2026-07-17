@@ -1,3 +1,21 @@
+---
+import { applications } from '../data/applications';
+
+const carouselApps = applications.filter((app) => app.image);
+
+function initialClass(index: number, total: number): string {
+  if (index === 0) return 'active';
+  if (index === 1) return 'next';
+  if (index === total - 1) return 'prev';
+  return index === 2 ? 'hidden-right' : 'hidden-left';
+}
+
+function urlLabel(appName: string): string {
+  const short = appName.replace(/^GOJAGS\s+/i, '');
+  return `portal.gojags.pusdiklat.bps.go.id — ${short}`;
+}
+---
+
 <section
   class="relative border-b overflow-hidden"
   style="background-color: var(--color-surface-secondary); border-color: var(--color-border);"
@@ -213,54 +231,31 @@
 
         <!-- Cards -->
         <div class="carousel-track" id="carousel-track">
-          <div class="carousel-card active" data-index="0" id="card-0">
-            <div class="win-chrome">
-              <span class="win-dot win-dot-red"></span>
-              <span class="win-dot win-dot-yellow"></span>
-              <span class="win-dot win-dot-green"></span>
-              <div class="win-urlbar"><span>portal.gojags.pusdiklat.bps.go.id — Ruang Kelas</span></div>
+          {carouselApps.map((app, i) => (
+            <div class="carousel-card {initialClass(i, carouselApps.length)}" data-index={i} id={`card-${i}`}>
+              <div class="win-chrome">
+                <span class="win-dot win-dot-red"></span>
+                <span class="win-dot win-dot-yellow"></span>
+                <span class="win-dot win-dot-green"></span>
+                <div class="win-urlbar"><span>{urlLabel(app.name)}</span></div>
+              </div>
+              <div class="win-content">
+                <img src={app.image} alt={app.name} draggable="false" />
+              </div>
             </div>
-            <div class="win-content">
-              <img src="/classroom.png" alt="Ruang Kelas GOJAGS" draggable="false" />
-            </div>
-          </div>
-
-          <div class="carousel-card next" data-index="1" id="card-1">
-            <div class="win-chrome">
-              <span class="win-dot win-dot-red"></span>
-              <span class="win-dot win-dot-yellow"></span>
-              <span class="win-dot win-dot-green"></span>
-              <div class="win-urlbar"><span>portal.gojags.pusdiklat.bps.go.id — Pelatihan</span></div>
-            </div>
-            <div class="win-content">
-              <img src="/training.png" alt="Pelatihan GOJAGS" draggable="false" />
-            </div>
-          </div>
-
-          <div class="carousel-card prev" data-index="2" id="card-2">
-            <div class="win-chrome">
-              <span class="win-dot win-dot-red"></span>
-              <span class="win-dot win-dot-yellow"></span>
-              <span class="win-dot win-dot-green"></span>
-              <div class="win-urlbar"><span>portal.gojags.pusdiklat.bps.go.id — Kantor</span></div>
-            </div>
-            <div class="win-content">
-              <img src="/office.png" alt="Kantor GOJAGS" draggable="false" />
-            </div>
-          </div>
+          ))}
         </div>
 
         <!-- Dots -->
         <div class="carousel-dots" id="carousel-dots">
-          <button class="carousel-dot active" aria-label="Slide 1"></button>
-          <button class="carousel-dot" aria-label="Slide 2"></button>
-          <button class="carousel-dot" aria-label="Slide 3"></button>
+          {carouselApps.map((_, i) => (
+            <button class="carousel-dot {i === 0 ? 'active' : ''}" aria-label={`Slide ${i + 1}`}></button>
+          ))}
         </div>
       </div>
 
-      <script>
+      <script is:inline define:vars={{ total: carouselApps.length }}>
         (function() {
-          const total = 3;
           let current = 0;
           const cards = Array.from(document.querySelectorAll('.carousel-card'));
           const dots  = Array.from(document.querySelectorAll('.carousel-dot'));

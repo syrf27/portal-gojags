@@ -10,6 +10,7 @@
       "description": "Platform pembelajaran online yang menyajikan berbagai materi pelatihan, pengetahuan, dan webinar yang dapat diakses oleh seluruh pegawai Badan Pusat Statistik dan masyarakat umum.",
       "category": "eksternal",
       "url": "https://gojags-classroom.bps.go.id",
+      "image": "/classroom.png",
       "isFrequent": true,
       "isFavorite": true
     },
@@ -19,6 +20,7 @@
       "description": "Platform layanan teknologi informasi terintegrasi milik Pusat Pendidikan dan Pelatihan BPS yang siap membantu Anda dalam mengelola pengembangan diri",
       "category": "eksternal",
       "url": "https://gojags-training.bps.go.id",
+      "image": "/training.png",
       "isFavorite": true
     },
     {
@@ -35,8 +37,45 @@
       "description": "Sistem Back office Pusdiklat BPS.",
       "category": "internal",
       "url": "https://gojags-office.etc-nso.id",
+      "image": "/office.png",
       "isFrequent": true,
       "isFavorite": true
+    },
+    {
+      "id": "gojags-edu",
+      "name": "GOJAGS Edu",
+      "description": "Platform pembelajaran dan pelatihan berbasis kompetensi untuk mendukung pengembangan sumber daya manusia di lingkungan BPS.",
+      "category": "eksternal",
+      "url": "https://gojags-educ.web.bps.go.id",
+      "isFavorite": true
+    },
+    {
+      "id": "akreditasi-prakom",
+      "name": "Platform Akreditasi Pelatihan Prakom dan Statistisi",
+      "description": "Sistem akreditasi untuk program pelatihan, tenaga Pengelola Teknologi Informasi (Prakom), dan Statistisi di lingkungan BPS.",
+      "category": "internal",
+      "url": "https://akreditasi.etc-nso.id"
+    },
+    {
+      "id": "lsp",
+      "name": "Lembaga Sertifikasi Profesi",
+      "description": "Lembaga Sertifikasi Profesi BPS yang menyelenggarakan uji kompetensi dan penerbitan sertifikat profesi bagi tenaga statistik.",
+      "category": "eksternal",
+      "url": "https://lsp.web.bps.go.id"
+    },
+    {
+      "id": "gojags-library",
+      "name": "GOJAGS Library",
+      "description": "Perpustakaan digital yang menyediakan koleksi referensi, jurnal, dan publikasi ilmiah untuk mendukung riset dan pengembangan kompetensi pegawai.",
+      "category": "eksternal",
+      "url": "https://gojags-lib.web.bps.go.id"
+    },
+    {
+      "id": "web-pusdiklat",
+      "name": "Web Pusdiklat",
+      "description": "Portal resmi Pusat Pendidikan dan Pelatihan Badan Pusat Statistik.",
+      "category": "eksternal",
+      "url": "https://pusdiklat.bps.go.id"
     }
   ]
 }

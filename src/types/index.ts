@@ -6,6 +6,7 @@ export interface Application {
   description: string;
   category: CategoryId;
   url: string;
+  image?: string;
   isPublished?: boolean;
   isFrequent?: boolean;
   isFavorite?: boolean;
