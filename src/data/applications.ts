@@ -1,10 +1,11 @@
-import type { Application, Category } from '../types';
+import type { Application, Category, Screenshot } from '../types';
 import raw from './applications.json';
 
-const data = raw as { categories: Category[]; applications: Application[] };
+const data = raw as { categories: Category[]; applications: Application[]; screenshots: Screenshot[] };
 
 export const categories: Category[] = data.categories;
 export const applications: Application[] = data.applications;
+export const screenshots: Screenshot[] = data.screenshots;
 
 export function getApplicationsByCategory(categoryId: string): Application[] {
   if (categoryId === 'all') return applications;

@@ -111,7 +111,7 @@ function renderCard(a) {
   var published = a.isPublished !== false;
   var html = '<article class="card-enter is-visible group relative rounded-xl border flex flex-col transition-all duration-300 ease-out shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-[var(--color-accent)]" style="background:var(--color-card);border-color:var(--color-border-light)" tabindex="0" role="article" aria-label="' + a.name + ' - ' + a.description + '">' +
     '<div class="flex items-start gap-3 px-5 pt-5 pb-3">' +
-      '<img src="/gojags-logo.png" alt="" width="36" height="36" class="rounded-lg shrink-0" aria-hidden="true" loading="lazy">' +
+      '<img src="' + (a.image || '/gojags-logo.png') + '" alt="" width="36" height="36" class="rounded-lg shrink-0" aria-hidden="true" loading="lazy">' +
       '<div class="min-w-0 flex-1">' +
         '<div class="flex items-center gap-2">' +
           '<h3 class="text-[15px] font-semibold" style="color:var(--color-text-primary)">' + a.name + '</h3>' +

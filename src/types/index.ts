@@ -17,7 +17,14 @@ export interface Category {
   name: string;
 }
 
+export interface Screenshot {
+  appId: string;
+  url: string;
+  alt?: string;
+}
+
 export interface ApplicationsData {
   categories: Category[];
   applications: Application[];
+  screenshots: Screenshot[];
 }

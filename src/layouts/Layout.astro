@@ -33,10 +33,99 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
   </head>
   <body class="min-h-screen flex flex-col antialiased">
     <Header />
+
+    <!-- ── Announcement Banner ── -->
+    <div id="ann-wrapper" style="position:sticky; top:64px; z-index:40; width:100%;">
+
+      <!-- Expanded banner -->
+      <div id="ann-bar" style="background:var(--color-accent); width:100%; overflow:hidden; transition:max-height 0.3s ease, opacity 0.3s ease; max-height:60px; opacity:1;">
+        <div style="max-width:80rem; margin:0 auto; padding:0.7rem 2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+          <a href="https://panduangojags.my.canva.site/home" style="font-size:0.875rem; font-weight:700; color:#fff; text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-flex; align-items:center; gap:6px;" target="_blank" rel="noopener noreferrer" id="ann-link">
+            Panduan Penggunaan Aplikasi GOJAGS
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:transform 0.2s ease;" id="ann-arrow">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+          <div style="display:flex; align-items:center; gap:0.5rem; flex-shrink:0;">
+            <!-- Dismiss button -->
+            <button id="ann-close" aria-label="Tutup pengumuman"
+              style="display:flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:rgba(0,0,0,0.15); border:none; cursor:pointer; color:#fff; flex-shrink:0; transition:background 0.2s;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collapsed tab — shown when dismissed -->
+      <div id="ann-tab"
+        style="display:none; position:absolute; right:2rem; top:0; transform:translateY(-1px);">
+        <button id="ann-expand" aria-label="Tampilkan pengumuman"
+          style="display:flex; align-items:center; justify-content:center; width:28px; height:22px; background:var(--color-accent); border:none; border-radius:0 0 8px 8px; cursor:pointer; color:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <main class="flex-1">
       <slot />
     </main>
     <Footer />
     <WhatsAppButton />
+
+    <script is:inline>
+      (function () {
+        var bar    = document.getElementById('ann-bar');
+        var tab    = document.getElementById('ann-tab');
+        var close  = document.getElementById('ann-close');
+        var expand = document.getElementById('ann-expand');
+        var link   = document.getElementById('ann-link');
+        var arrow  = document.getElementById('ann-arrow');
+
+        // Restore state from session
+        if (sessionStorage.getItem('ann-hidden') === '1') {
+          collapse();
+        }
+
+        if (link) {
+          link.addEventListener('mouseenter', function () { if (arrow) arrow.style.transform = 'translateX(4px)'; });
+          link.addEventListener('mouseleave', function () { if (arrow) arrow.style.transform = 'translateX(0)'; });
+        }
+
+        if (close) close.addEventListener('click', function () {
+          collapse();
+          sessionStorage.setItem('ann-hidden', '1');
+        });
+
+        if (expand) expand.addEventListener('click', function () {
+          expandBar();
+          sessionStorage.removeItem('ann-hidden');
+        });
+
+        function collapse() {
+          if (!bar || !tab) return;
+          bar.style.maxHeight = '0';
+          bar.style.opacity   = '0';
+          setTimeout(function () {
+            bar.style.display = 'none';
+            tab.style.display = 'block';
+          }, 300);
+        }
+
+        function expandBar() {
+          if (!bar || !tab) return;
+          tab.style.display = 'none';
+          bar.style.display = 'block';
+          requestAnimationFrame(function () {
+            bar.style.maxHeight = '60px';
+            bar.style.opacity   = '1';
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

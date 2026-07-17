@@ -10,7 +10,6 @@
       "description": "Platform pembelajaran online yang menyajikan berbagai materi pelatihan, pengetahuan, dan webinar yang dapat diakses oleh seluruh pegawai Badan Pusat Statistik dan masyarakat umum.",
       "category": "eksternal",
       "url": "https://gojags-classroom.bps.go.id",
-      "image": "/classroom.png",
       "isFrequent": true,
       "isFavorite": true
     },
@@ -20,7 +19,6 @@
       "description": "Platform layanan teknologi informasi terintegrasi milik Pusat Pendidikan dan Pelatihan BPS yang siap membantu Anda dalam mengelola pengembangan diri",
       "category": "eksternal",
       "url": "https://gojags-training.bps.go.id",
-      "image": "/training.png",
       "isFavorite": true
     },
     {
@@ -37,7 +35,6 @@
       "description": "Sistem Back office Pusdiklat BPS.",
       "category": "internal",
       "url": "https://gojags-office.etc-nso.id",
-      "image": "/office.png",
       "isFrequent": true,
       "isFavorite": true
     },
@@ -72,10 +69,28 @@
     },
     {
       "id": "web-pusdiklat",
-      "name": "Web Pusdiklat",
+      "name": "Web Pusdiklat BPS",
       "description": "Portal resmi Pusat Pendidikan dan Pelatihan Badan Pusat Statistik.",
       "category": "eksternal",
-      "url": "https://pusdiklat.bps.go.id"
+      "url": "https://pusdiklat.bps.go.id",
+      "image": "../../public/corpu.png"
+    }
+  ],
+  "screenshots": [
+    {
+      "appId": "gojags-classroom",
+      "url": "/classroom.png",
+      "alt": "GOJAGS Classroom Screenshot"
+    },
+    {
+      "appId": "gojags-training",
+      "url": "/training.png",
+      "alt": "GOJAGS Training Screenshot"
+    },
+    {
+      "appId": "gojags-office",
+      "url": "/office.png",
+      "alt": "GOJAGS Office Screenshot"
     }
   ]
 }

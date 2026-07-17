@@ -12,6 +12,7 @@ const categoryColor: Record<string, string> = {
 };
 const color = categoryColor[app.category] || '#6b7280';
 const isPublished = app.isPublished !== false;
+const logoSrc = app.image || '/gojags-logo.png';
 ---
 
 <article
@@ -23,7 +24,7 @@ const isPublished = app.isPublished !== false;
 >
   <div class="flex items-start gap-3 px-5 pt-5 pb-3">
     <img
-      src="/gojags-logo.png"
+      src={logoSrc}
       alt=""
       width="36"
       height="36"

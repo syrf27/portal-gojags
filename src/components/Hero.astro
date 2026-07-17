@@ -1,7 +1,5 @@
 ---
-import { applications } from '../data/applications';
-
-const carouselApps = applications.filter((app) => app.image);
+import { screenshots } from '../data/applications';
 
 function initialClass(index: number, total: number): string {
   if (index === 0) return 'active';
@@ -231,16 +229,21 @@ function urlLabel(appName: string): string {
 
         <!-- Cards -->
         <div class="carousel-track" id="carousel-track">
-          {carouselApps.map((app, i) => (
-            <div class="carousel-card {initialClass(i, carouselApps.length)}" data-index={i} id={`card-${i}`}>
+          {screenshots.map((shot, i) => (
+            <div
+              class={`carousel-card ${initialClass(i, screenshots.length)}`}
+              data-index={i}
+              id={`card-${i}`}
+              style="transition:none"
+            >
               <div class="win-chrome">
                 <span class="win-dot win-dot-red"></span>
                 <span class="win-dot win-dot-yellow"></span>
                 <span class="win-dot win-dot-green"></span>
-                <div class="win-urlbar"><span>{urlLabel(app.name)}</span></div>
+                <div class="win-urlbar"><span>{urlLabel(shot.alt?.replace(' Screenshot', '') || '')}</span></div>
               </div>
               <div class="win-content">
-                <img src={app.image} alt={app.name} draggable="false" />
+                <img src={shot.url} alt={shot.alt || ''} draggable="false" />
               </div>
             </div>
           ))}
@@ -248,13 +251,13 @@ function urlLabel(appName: string): string {
 
         <!-- Dots -->
         <div class="carousel-dots" id="carousel-dots">
-          {carouselApps.map((_, i) => (
+          {screenshots.map((_, i) => (
             <button class="carousel-dot {i === 0 ? 'active' : ''}" aria-label={`Slide ${i + 1}`}></button>
           ))}
         </div>
       </div>
 
-      <script is:inline define:vars={{ total: carouselApps.length }}>
+      <script is:inline define:vars={{ total: screenshots.length }}>
         (function() {
           let current = 0;
           const cards = Array.from(document.querySelectorAll('.carousel-card'));
@@ -294,6 +297,13 @@ function urlLabel(appName: string): string {
 
           // Auto-advance every 4 seconds
           setInterval(() => { current = (current + 1) % total; update(); }, 4000);
+
+          // Remove the inline transition:none after first paint so interactions animate smoothly
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              cards.forEach(card => card.style.transition = '');
+            });
+          });
         })();
       </script>
 
