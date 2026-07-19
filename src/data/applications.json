@@ -73,7 +73,7 @@
       "description": "Portal resmi Pusat Pendidikan dan Pelatihan Badan Pusat Statistik.",
       "category": "eksternal",
       "url": "https://pusdiklat.bps.go.id",
-      "image": "../../public/corpu.png"
+      "image": "/corpu.png"
     }
   ],
   "screenshots": [
