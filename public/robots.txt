@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://portal-gojags-alpha.vercel.app/sitemap-index.xml
