@@ -98,14 +98,19 @@ const stats = [
         io.disconnect();
 
         // Fetch visitor count, then animate everything
-        fetch('https://countapi.mileshilliard.com/api/v1/hit/gojags-portal-visitors')
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function () { controller.abort(); }, 5000);
+
+        fetch('https://api.countapi.xyz/hit/gojags-portal/visitors', { signal: controller.signal })
           .then(function (r) { return r.json(); })
           .then(function (data) {
+            clearTimeout(timeoutId);
             var val = data.value || 0;
             localStorage.setItem('gojags_vc', String(val));
             runCounts(val);
           })
           .catch(function () {
+            clearTimeout(timeoutId);
             var saved = parseInt(localStorage.getItem('gojags_vc') || '0', 10);
             var n = saved + 1;
             localStorage.setItem('gojags_vc', String(n));
